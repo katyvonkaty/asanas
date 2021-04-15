@@ -1,5 +1,12 @@
 
 import downward from "./assets/images/downward.png"
+import caturanga from "./assets/images/caturanga.png"
+import plank from "./assets/images/plank.png"
+import utanasana from "./assets/images/utanasana.png"
+import bhjungasana from "./assets/images/bhjungasana.png"
+import lowlunge from "./assets/images/lowlunge.png"
+import balasana from "./assets/images/balasana.png"
+
 const cardsContainer = document.getElementById("cards-container");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
@@ -11,6 +18,8 @@ const sanskirtEl = document.getElementById("sanskirt");
 const answerEl = document.getElementById("answer");
 const addCardBtn = document.getElementById("add-card");
 const addImageBtn = document.getElementById("add-image")
+const cuesEl = document.getElementById("cues");
+
 const clearBtn = document.getElementById("clear");
 
 const addContainer = document.getElementById("add-container");
@@ -31,17 +40,39 @@ const cardsData = [
   },
   {
     sanskirt: "shalambasana",
-    answer: "bridge pose",
+    answer: "Intense Forward Fold",
     cues: "tuck your chin",
-    imgUrl:
-      "https://d2ie288hwu80n0.cloudfront.net/works/25366/big-thumb-2020-10-23-SBUCmoKz5dWgl0uZjMRe1q6Se7Ad24tTp6sb013YNzS6klGfm-nbmByy6AP76WhFzNg4koRJRtOugHN3.jpg",
+    imgUrl:`${caturanga}`,
   },
   {
-    sanskirt: "shalambasana",
-    answer: "bridge pose",
-    cues: "tuck your chin",
-    imgUrl:
-      "https://d2ie288hwu80n0.cloudfront.net/works/25366/big-thumb-2020-10-23-SBUCmoKz5dWgl0uZjMRe1q6Se7Ad24tTp6sb013YNzS6klGfm-nbmByy6AP76WhFzNg4koRJRtOugHN3.jpg",
+    sanskirt: "Plank",
+    answer: "Plank",
+    cues: "Firm up arms and legs",
+    imgUrl:`${plank}`
+  },
+  {
+    sanskirt: "Uttansana",
+    answer: "Intense Forward Fold",
+    cues: "Stack your bones vertically",
+    imgUrl:`${utanasana}`
+  },
+  {
+    sanskirt: "Low Lunge",
+    answer: "Low Lunge",
+    cues: "Lengthen your torso forward away from your crown",
+    imgUrl:`${lowlunge}`,
+  },
+  {
+    sanskirt: "Balasana",
+    answer: "Childs Pose",
+    cues: "Draw the hips down to the heels ",
+    imgUrl:`${balasana}`
+  },
+  {
+    sanskirt: "Bhujangasana",
+    answer: "Cobra",
+    cues: "Heavy your legs and hips to the floor",
+    imgUrl:`${bhjungasana}`
   },
 ];
 
@@ -60,14 +91,14 @@ function createCard(data, index) {
   const card = document.createElement("div");
   card.classList.add("card");
 
-  if (index === 0) {
-    card.classList.add("active");
+  if(index === 0) {
+    card.classList.add("active")
   }
 
   card.innerHTML = `
   <div class="inner-card">
     <div class="inner-card-front">
-      <img src=${data.imgUrl} />
+      <img id="imagePreview" src=${data.imgUrl} />
     </div>
     <div class="inner-card-back">
 
@@ -161,21 +192,24 @@ clearBtn.addEventListener("click", () => {
 addCardBtn.addEventListener("click", () => {
   const sanskirt = sanskirtEl.value;
   const answer = answerEl.value
+  const cues = cuesEl.value
   let imgUrl = document.getElementById('uploadImage').files[0];
   var reader = new FileReader();
   reader.readAsDataURL(imgUrl);
   reader.onload = function () {
   localStorage.setItem("image", reader.result);
-  document.getElementById("imagePreview").setAttribute("src", localStorage.getItem("image"))
+  document.getElementById("imageUploaded").setAttribute("src", localStorage.getItem("image"))
   };
 
   if(sanskirt.trim() && answer.trim()){
-    const newCard = {sanskirt,answer,imgUrl}
+    const newCard = {sanskirt,answer,imgUrl, cues}
     createCard(newCard)
 
     sanskirtEl.value=""
     answerEl.value=""
-    imgUrl = ""
+    imgUrl =   document.getElementById("imageUploaded").setAttribute("src", localStorage.getItem("image"))
+
+    cuesEl.value = ""
 
     addContainer.classList.remove("show")
 
