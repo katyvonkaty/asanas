@@ -1,11 +1,10 @@
-
-import downward from "./assets/images/downward.png"
-import caturanga from "./assets/images/caturanga.png"
-import plank from "./assets/images/plank.png"
-import utanasana from "./assets/images/utanasana.png"
-import bhjungasana from "./assets/images/bhjungasana.png"
-import lowlunge from "./assets/images/lowlunge.png"
-import balasana from "./assets/images/balasana.png"
+import downward from "./assets/images/downward.png";
+import caturanga from "./assets/images/caturanga.png";
+import plank from "./assets/images/plank.png";
+import utanasana from "./assets/images/utanasana.png";
+import bhjungasana from "./assets/images/bhjungasana.png";
+import lowlunge from "./assets/images/lowlunge.png";
+import balasana from "./assets/images/balasana.png";
 
 const cardsContainer = document.getElementById("cards-container");
 const prevBtn = document.getElementById("prev");
@@ -13,14 +12,17 @@ const nextBtn = document.getElementById("next");
 const currentEl = document.getElementById("current");
 const showBtn = document.getElementById("show");
 const hideBtn = document.getElementById("hide");
-const questionEl = document.getElementById("question");
+// const questionEl = document.getElementById("question");
 const sanskirtEl = document.getElementById("sanskirt");
 const answerEl = document.getElementById("answer");
 const addCardBtn = document.getElementById("add-card");
-const addImageBtn = document.getElementById("add-image")
+// const addImageBtn = document.getElementById("add-image")
 const cuesEl = document.getElementById("cues");
 
 const clearBtn = document.getElementById("clear");
+const loadFile = document.getElementById("loadFile");
+const addImgBtn = document.getElementById("addImgBtn");
+
 
 const addContainer = document.getElementById("add-container");
 
@@ -30,7 +32,8 @@ let currentActiveCard = 0;
 //store dom cards
 const cardsEl = [];
 
-//store card data
+//if i was pulling cards form local storage
+// const cardsData = getCardsData();
 const cardsData = [
   {
     sanskirt: "Adho Muka Shavasana",
@@ -39,9 +42,9 @@ const cardsData = [
     imgUrl: `${downward}`
   },
   {
-    sanskirt: "shalambasana",
-    answer: "Intense Forward Fold",
-    cues: "tuck your chin",
+    sanskirt: "Caturanga",
+    answer: "Caturanga",
+    cues: "Keep the chest expanded and upper back broad",
     imgUrl:`${caturanga}`,
   },
   {
@@ -76,6 +79,7 @@ const cardsData = [
   },
 ];
 
+
 //show in sanskirt and some cues
 
 //create all cards
@@ -85,20 +89,18 @@ function createCards() {
   });
 }
 
-//create a single card in DOM
-
 function createCard(data, index) {
   const card = document.createElement("div");
   card.classList.add("card");
 
-  if(index === 0) {
-    card.classList.add("active")
+  if (index === 0) {
+    card.classList.add("active");
   }
 
   card.innerHTML = `
   <div class="inner-card">
     <div class="inner-card-front">
-      <img id="imagePreview" src=${data.imgUrl} />
+      <img id="imageUploaded" src=${data.imgUrl} />
     </div>
     <div class="inner-card-back">
 
@@ -121,104 +123,109 @@ function createCard(data, index) {
 }
 
 //show number of cards
-function updateCurrentText(){
-  currentEl.innerText = `${currentActiveCard + 1} / ${cardsEl.length}`
+function updateCurrentText() {
+  currentEl.innerText = `${currentActiveCard + 1} / ${cardsEl.length}`;
 }
 
-//get cards from local storage
-function getCardsData(){
-  const cards = JSON.parse(localStorage.getItem("cards"))
+// get cards from local storage
+function getCardsData() {
+  const cards = JSON.parse(localStorage.getItem("cards"));
   return cards === null ? [] : cards;
 }
 
 //add card to local storagev
-function setCardsData(cards){
-  localStorage.setItem("cards", JSON.stringify(cards))
+function setCardsData(cards) {
+  localStorage.setItem("cards", JSON.stringify(cards));
+  window.location.reload()
 }
 
 createCards();
 
 //event listeners
 
-
 //hide card to the left
 nextBtn.addEventListener("click", () => {
-  cardsEl[currentActiveCard].className="card left"
+  cardsEl[currentActiveCard].className = "card left";
 
-  currentActiveCard = currentActiveCard + 1
+  currentActiveCard = currentActiveCard + 1;
 
-  if(currentActiveCard > cardsEl.length - 1) {
-    currentActiveCard = cardsEl.length - 1
+  if (currentActiveCard > cardsEl.length - 1) {
+    currentActiveCard = cardsEl.length - 1;
   }
 
-  cardsEl[currentActiveCard].className= "card active";
+  cardsEl[currentActiveCard].className = "card active";
   updateCurrentText();
-
-})
+});
 
 //show container
 showBtn.addEventListener("click", () => {
-  addContainer.classList.add("show")
-})
+  addContainer.classList.add("show");
+});
 
 //hide addContainer
 hideBtn.addEventListener("click", () => {
-  addContainer.classList.remove("show")
-})
-
-
+  addContainer.classList.remove("show");
+});
 
 prevBtn.addEventListener("click", () => {
-  cardsEl[currentActiveCard].className="card right"
+  cardsEl[currentActiveCard].className = "card right";
 
-  currentActiveCard = currentActiveCard - 1
+  currentActiveCard = currentActiveCard - 1;
 
-  if(currentActiveCard < 0 ) {
+  if (currentActiveCard < 0) {
     currentActiveCard = 0;
   }
 
-  cardsEl[currentActiveCard].className= "card active";
+  cardsEl[currentActiveCard].className = "card active";
   updateCurrentText();
+});
 
-})
+
+
 
 clearBtn.addEventListener("click", () => {
   localStorage.clear();
   cardsContainer.innerHTML = "";
   window.location.reload();
-})
+});
+
 
 
 addCardBtn.addEventListener("click", () => {
   const sanskirt = sanskirtEl.value;
-  const answer = answerEl.value
-  const cues = cuesEl.value
-  let imgUrl = document.getElementById('uploadImage').files[0];
+  const answer = answerEl.value;
+  const cues = cuesEl.value;
+
+  let imgUrl = document.getElementById("uploadImage").files[0];
   var reader = new FileReader();
   reader.readAsDataURL(imgUrl);
   reader.onload = function () {
-  localStorage.setItem("image", reader.result);
-  document.getElementById("imageUploaded").setAttribute("src", localStorage.getItem("image"))
+    localStorage.setItem("image", reader.result);
+    document
+      .getElementById("imagePreview")
+      .setAttribute("src", localStorage.getItem("image"));
   };
 
-  if(sanskirt.trim() && answer.trim()){
-    const newCard = {sanskirt,answer,imgUrl, cues}
-    createCard(newCard)
+  if (sanskirt.trim() && answer.trim()) {
+    const newCard = { sanskirt, answer, imgUrl, cues };
+    createCard(newCard);
 
-    sanskirtEl.value=""
-    answerEl.value=""
-    imgUrl =   document.getElementById("imageUploaded").setAttribute("src", localStorage.getItem("image"))
+    sanskirtEl.value = "";
+    answerEl.value = "";
+    imgUrl = document
+      .getElementById("imageUploaded")
+      .setAttribute("src", localStorage.getItem("image"));
 
-    cuesEl.value = ""
+    cuesEl.value = "";
 
-    addContainer.classList.remove("show")
+    addContainer.classList.remove("show");
 
     cardsData.push(newCard);
-    setCardsData(cardsData)
+    setCardsData(cardsData);
   }
 
-  console.log(sanskirt,answer, imgUrl)
-})
+  console.log(sanskirt, answer, imgUrl);
+});
 
 // addImageBtn.addEventListener("click", () => {
 //   const file = document.getElementById('uploadImage').files[0];
@@ -230,9 +237,6 @@ addCardBtn.addEventListener("click", () => {
 //   };
 //
 // })
-
-
-
 
 function App() {
   return <div className="App"></div>;

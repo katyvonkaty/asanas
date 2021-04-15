@@ -18,6 +18,7 @@ body {
 
 .card img {
   width: auto  !important;
+  height:50%  !important;
 
 }
 #imagePreview {
@@ -189,6 +190,7 @@ h1 button {
 
 #imageUploaded{
   height:100%;
+  width:50%;
 }
 .add-container.show {
   opacity: 1;
