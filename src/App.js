@@ -36,47 +36,66 @@ const cardsEl = [];
 // const cardsData = getCardsData();
 const cardsData = [
   {
-    sanskirt: "Adho Muka Shavasana",
-    answer: "Downward Dog",
-    cues: "Press firmly into your hands",
-    imgUrl: `${downward}`
+    sanskirt: "puis-je",
+    answer: "can i",
+    cues: "puis-je allez le store"
   },
   {
-    sanskirt: "Caturanga",
-    answer: "Caturanga",
-    cues: "Keep the chest expanded and upper back broad",
-    imgUrl:`${caturanga}`,
+    sanskirt: "pouvez-vous",
+    answer: " can you",
+    cues: "pouvez vous marche le chein"
   },
   {
-    sanskirt: "Plank",
-    answer: "Plank",
-    cues: "Firm up arms and legs",
-    imgUrl:`${plank}`
+    sanskirt: "voulez-vous",
+    answer: "do you want",
+    cues: "voulez vous mange pizza avec moi"
   },
   {
-    sanskirt: "Uttansana",
-    answer: "Intense Forward Fold",
-    cues: "Stack your bones vertically",
-    imgUrl:`${utanasana}`
+    sanskirt: "allez-vous",
+    answer: "are you going",
+    cues: "allez vous ala plage",
   },
   {
-    sanskirt: "Low Lunge",
-    answer: "Low Lunge",
-    cues: "Lengthen your torso forward away from your crown",
-    imgUrl:`${lowlunge}`,
+    sanskirt: "dois-je",
+    answer: "do i have to",
+    cues: "dois je visite la grandma"
   },
   {
-    sanskirt: "Balasana",
-    answer: "Childs Pose",
-    cues: "Draw the hips down to the heels ",
-    imgUrl:`${balasana}`
+    sanskirt: "manger",
+    answer: "to eat",
+    cues: "voulez vous mange pizza avec moi"
   },
   {
-    sanskirt: "Bhujangasana",
-    answer: "Cobra",
-    cues: "Heavy your legs and hips to the floor",
-    imgUrl:`${bhjungasana}`
+    sanskirt: "boire",
+    answer: "to drink",
+    cues: "je vais boire avec mes amis",
   },
+  {
+    sanskirt: "commander",
+    answer: "order",
+    cues: "je voudrais commander le bistec"
+  },
+  {
+    sanskirt: "dois-je",
+    answer: "do i have to",
+    cues: "dois je visite la grandma"
+  },
+  {
+    sanskirt: "faire",
+    answer: "to do / to make",
+    cues: "je veux faire un gateau"
+  },
+  {
+    sanskirt: "aller",
+    answer: "to go",
+    cues: "veux aller au cinema",
+  },
+  {
+    sanskirt: "avoir",
+    answer: "have",
+    cues: "j'ai un chien"
+  },
+
 ];
 
 
@@ -100,13 +119,13 @@ function createCard(data, index) {
   card.innerHTML = `
   <div class="inner-card">
     <div class="inner-card-front">
-      <img id="imageUploaded" src=${data.imgUrl} />
+    <p><b> English: </b> ${data.answer}  </p>
+
     </div>
     <div class="inner-card-back">
 
-      <p><b> English: </b> ${data.answer}  </p>
-      <p><b> Sanskirt: </b> ${data.sanskirt}</p>
-      <p><b>Cues: </b> ${data.cues}</p>
+      <p><b> French: </b> ${data.sanskirt}</p>
+      <p><b>Sentence: </b> ${data.cues}</p>
 
     </div>
   </div>
@@ -196,26 +215,14 @@ addCardBtn.addEventListener("click", () => {
   const answer = answerEl.value;
   const cues = cuesEl.value;
 
-  let imgUrl = document.getElementById("uploadImage").files[0];
-  var reader = new FileReader();
-  reader.readAsDataURL(imgUrl);
-  reader.onload = function () {
-    localStorage.setItem("image", reader.result);
-    document
-      .getElementById("imagePreview")
-      .setAttribute("src", localStorage.getItem("image"));
-  };
+
 
   if (sanskirt.trim() && answer.trim()) {
-    const newCard = { sanskirt, answer, imgUrl, cues };
+    const newCard = { sanskirt, answer, cues };
     createCard(newCard);
 
     sanskirtEl.value = "";
     answerEl.value = "";
-    imgUrl = document
-      .getElementById("imageUploaded")
-      .setAttribute("src", localStorage.getItem("image"));
-
     cuesEl.value = "";
 
     addContainer.classList.remove("show");
@@ -224,7 +231,6 @@ addCardBtn.addEventListener("click", () => {
     setCardsData(cardsData);
   }
 
-  console.log(sanskirt, answer, imgUrl);
 });
 
 // addImageBtn.addEventListener("click", () => {
