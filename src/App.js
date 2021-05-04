@@ -33,70 +33,70 @@ let currentActiveCard = 0;
 const cardsEl = [];
 
 //if i was pulling cards form local storage
-// const cardsData = getCardsData();
-const cardsData = [
-  {
-    sanskirt: "puis-je",
-    answer: "can i",
-    cues: "puis-je allez le store"
-  },
-  {
-    sanskirt: "pouvez-vous",
-    answer: " can you",
-    cues: "pouvez vous marche le chein"
-  },
-  {
-    sanskirt: "voulez-vous",
-    answer: "do you want",
-    cues: "voulez vous mange pizza avec moi"
-  },
-  {
-    sanskirt: "allez-vous",
-    answer: "are you going",
-    cues: "allez vous ala plage",
-  },
-  {
-    sanskirt: "dois-je",
-    answer: "do i have to",
-    cues: "dois je visite la grandma"
-  },
-  {
-    sanskirt: "manger",
-    answer: "to eat",
-    cues: "voulez vous mange pizza avec moi"
-  },
-  {
-    sanskirt: "boire",
-    answer: "to drink",
-    cues: "je vais boire avec mes amis",
-  },
-  {
-    sanskirt: "commander",
-    answer: "order",
-    cues: "je voudrais commander le bistec"
-  },
-  {
-    sanskirt: "dois-je",
-    answer: "do i have to",
-    cues: "dois je visite la grandma"
-  },
-  {
-    sanskirt: "faire",
-    answer: "to do / to make",
-    cues: "je veux faire un gateau"
-  },
-  {
-    sanskirt: "aller",
-    answer: "to go",
-    cues: "veux aller au cinema",
-  },
-  {
-    sanskirt: "avoir",
-    answer: "have",
-    cues: "j'ai un chien"
-  },
-
-];
+const cardsData = getCardsData();
+// const cardsData = [
+//   {
+//     sanskirt: "puis-je",
+//     answer: "can i",
+//     cues: "puis-je allez le store"
+//   },
+//   {
+//     sanskirt: "pouvez-vous",
+//     answer: " can you",
+//     cues: "pouvez vous marche le chein"
+//   },
+//   {
+//     sanskirt: "voulez-vous",
+//     answer: "do you want",
+//     cues: "voulez vous mange pizza avec moi"
+//   },
+//   {
+//     sanskirt: "allez-vous",
+//     answer: "are you going",
+//     cues: "allez vous ala plage",
+//   },
+//   {
+//     sanskirt: "dois-je",
+//     answer: "do i have to",
+//     cues: "dois je visite la grandma"
+//   },
+//   {
+//     sanskirt: "manger",
+//     answer: "to eat",
+//     cues: "voulez vous mange pizza avec moi"
+//   },
+//   {
+//     sanskirt: "boire",
+//     answer: "to drink",
+//     cues: "je vais boire avec mes amis",
+//   },
+//   {
+//     sanskirt: "commander",
+//     answer: "order",
+//     cues: "je voudrais commander le bistec"
+//   },
+//   {
+//     sanskirt: "dois-je",
+//     answer: "do i have to",
+//     cues: "dois je visite la grandma"
+//   },
+//   {
+//     sanskirt: "faire",
+//     answer: "to do / to make",
+//     cues: "je veux faire un gateau"
+//   },
+//   {
+//     sanskirt: "aller",
+//     answer: "to go",
+//     cues: "veux aller au cinema",
+//   },
+//   {
+//     sanskirt: "avoir",
+//     answer: "have",
+//     cues: "j'ai un chien"
+//   },
+//
+// ];
 
 
 //show in sanskirt and some cues
@@ -228,21 +228,13 @@ addCardBtn.addEventListener("click", () => {
     addContainer.classList.remove("show");
 
     cardsData.push(newCard);
+    console.log(newCard);
     setCardsData(cardsData);
   }
 
 });
 
-// addImageBtn.addEventListener("click", () => {
-//   const file = document.getElementById('uploadImage').files[0];
-//   var reader = new FileReader();
-//   reader.readAsDataURL(file);
-//   reader.onload = function () {
-//   localStorage.setItem("image", reader.result);
-//   document.getElementById("imagePreview").setAttribute("src", localStorage.getItem("image"))
-//   };
-//
-// })
+
 
 function App() {
   return <div className="App"></div>;
